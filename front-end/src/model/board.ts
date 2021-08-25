@@ -53,10 +53,9 @@ export class Board {
     }
 
     private getGoal(hand: Hand): string {
-        const d6_1 = Math.ceil(Math.random() * 6);
-        const d6_2 = Math.ceil(Math.random() * 6);
+        const d6 = Math.ceil(Math.random() * 6);
         const d8 = Math.ceil(Math.random() * 8);
-        const totalGoal = d6_1 + d6_2 + d8;
+        const totalGoal = d6 + d8 + 6;
 
         return hand.role + ": " + totalGoal;
     }

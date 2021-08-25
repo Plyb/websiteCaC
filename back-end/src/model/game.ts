@@ -13,7 +13,6 @@ export class Game {
     }
 
     public startGame() {
-        this.board = new Board();
-        this.board.createHands(this.allPlayers);
+        this.board = new Board(this.allPlayers);
     }
 }

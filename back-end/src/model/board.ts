@@ -26,9 +26,27 @@ export class Board {
         "Quartermaster:\n Food Stockpile",
     ]
 
-    constructor() {
-        this.proposalDrawCards = [...ProposalCardList];
+    constructor(players: Player[]) {
+        const numProposalCards = (players.length - 1) * 10;
+
+        this.proposalDrawCards = this.randomlyPullCards([...ProposalCardList], numProposalCards);
         this.eventDrawCards = [...EventCardList];
+
+        this.createHands(players);
+    }
+
+    private randomlyPullCards(cards: Card[], numberOfCards: number): Card[] {
+        const result = new Array<Card>(numberOfCards);
+        let len = cards.length;
+        const taken = new Array(len);
+        if (numberOfCards > len)
+            throw new RangeError("getRandom: more elements taken than available");
+        while (numberOfCards--) {
+            const x = Math.floor(Math.random() * len);
+            result[numberOfCards] = cards[x in taken ? taken[x] : x];
+            taken[x] = --len in taken ? taken[len] : len;
+        }
+        return result;
     }
 
     private addPlayer(player: Player) {
@@ -37,7 +55,7 @@ export class Board {
         this.hands.push(new Hand(player, [], role));
     }
 
-    public createHands(players: Player[]) {
+    private createHands(players: Player[]) {
         const drawnPlayerIndex = Math.floor(Math.random() * players.length);
         const monarch = players.splice(drawnPlayerIndex, 1)[0];
         this.hands.push(new Hand(monarch, [], "Monarch"))
