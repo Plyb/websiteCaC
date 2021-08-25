@@ -4,6 +4,7 @@ import { Player } from "./player";
 export class Hand {
     public selected: number | undefined;
     public points: number = 10;
+    public isSpy: boolean = false;
 
     constructor(
         public readonly player: Player,

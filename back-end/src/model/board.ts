@@ -56,14 +56,19 @@ export class Board {
     }
 
     private createHands(players: Player[]) {
-        const drawnPlayerIndex = Math.floor(Math.random() * players.length);
-        const monarch = players.splice(drawnPlayerIndex, 1)[0];
+        const drawnPlayerIndexMonarch = Math.floor(Math.random() * players.length);
+        const monarch = players.splice(drawnPlayerIndexMonarch, 1)[0];
         this.hands.push(new Hand(monarch, [], "Monarch"))
         this.hands[0].points = 0;
 
         players.forEach(player => {
             this.addPlayer(player);
         })
+
+        const drawnPlayerIndexSpy = Math.floor(Math.random() * players.length);
+        const spyPlayer = players[drawnPlayerIndexSpy];
+        const spy = this.hands.find(hand => hand.player === spyPlayer);
+        spy.isSpy = true;
     }
 
     public drawProposal(name: string): Card {

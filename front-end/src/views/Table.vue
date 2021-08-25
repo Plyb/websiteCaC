@@ -106,6 +106,7 @@
             {{ monarchGoals }}
         </div>
     </div>
+    <span v-if="board.getPlayerHand().isSpy">You are the spy</span>
 </div>
 </template>
 
