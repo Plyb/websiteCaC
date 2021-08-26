@@ -119,7 +119,9 @@ export class Board {
     }
 
     public shuffleEvents() {
+        const topRecycleCard = this.eventRecycleCards.pop();
         this.eventDrawCards.push(...this.eventRecycleCards);
+        this.eventDrawCards.unshift(topRecycleCard);
         this.eventRecycleCards = [];
     }
 
