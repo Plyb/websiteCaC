@@ -48,13 +48,18 @@
             @drawn="shuffleProposals"
         >
         </CardStack>
-        <CardStack
-            title="Event Draw"
-            :cards="board.eventDrawCards"
-            drawable
-            @drawn="drawEvent"
-        >
-        </CardStack>
+        <div class="actionable-card">
+            <CardStack
+                title="Event Draw"
+                :cards="board.eventDrawCards"
+                drawable
+                :highlighed="peeking"
+                @drawn="drawEvent"
+            >
+            </CardStack>
+            <button @click="peeking = true">Peek</button>
+            <div v-if="peeking" class="peek-info" @click="peeking = false">{{peekInfo}}</div>
+        </div>
         <CardStack
             title="Event Recycling"
             :cards="board.eventRecycleCards"
@@ -112,7 +117,6 @@
 
 <script>
 import CardStack from "../components/CardStack.vue"
-import { Card } from "../model/card"
 import { Board } from '../model/board'
 import { Game } from '../model/game'
 import axios from 'axios'
@@ -125,7 +129,8 @@ export default {
             playerName: Game.instance.playerName,
             points: this.board?.getPlayerHand().points,
             changingPoints: false,
-            monarchGoals: this.board?.getMonarchGoals()
+            monarchGoals: this.board?.getMonarchGoals(),
+            peeking: false,
         }
     },
     components: {
@@ -216,6 +221,14 @@ export default {
             this.monarchGoals = this.board.getMonarchGoals();
         }
     },
+    computed: {
+        peekInfo: function() {
+            const peekedCards = this.board.eventDrawCards.slice(this.board.eventDrawCards.length - 3, this.board.eventDrawCards.length);
+            return peekedCards.reduce((prev, curr) => {
+                return prev + curr.name + " - " + curr.description + ", ";
+            }, '');
+        }
+    },
     created: async function() {
         await this.intitiateReloads();
         this.monarchGoals = this.board?.getMonarchGoals();
@@ -262,6 +275,13 @@ h2 {
 .other-players {
     flex-wrap: nowrap;
     overflow: scroll;
+}
+
+.peek-info {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: lightblue;
 }
 
 button, .button {
