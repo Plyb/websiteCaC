@@ -46,6 +46,7 @@ export class Board {
             result[numberOfCards] = cards[x in taken ? taken[x] : x];
             taken[x] = --len in taken ? taken[len] : len;
         }
+        result.sort((a, b) => Math.random() - 0.5)
         return result;
     }
 
@@ -72,8 +73,7 @@ export class Board {
     }
 
     public drawProposal(name: string): Card {
-        const drawnCardIndex = Math.floor(Math.random() * this.proposalDrawCards.length);
-        const card = this.proposalDrawCards.splice(drawnCardIndex, 1)[0];
+        const card = this.proposalDrawCards.pop()
         this.hands.find(hand => hand.player.name === name).cards.push(card);
         return card;
     }
@@ -114,8 +114,7 @@ export class Board {
     }
 
     public drawEventCard() {
-        const drawnCardIndex = Math.floor(Math.random() * this.eventDrawCards.length);
-        const card = this.eventDrawCards.splice(drawnCardIndex, 1)[0];
+        const card = this.eventDrawCards.pop()
         this.eventRecycleCards.push(card);
     }
 

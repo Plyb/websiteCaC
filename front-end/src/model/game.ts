@@ -16,18 +16,20 @@ export class Game {
         return this.allPlayers;
     }
 
-    public async reloadBoard(): Promise<Board> {
+    public async reloadBoard(): Promise<Board | undefined> {
         const res = await axios.get("/api/board");
         const boardRaw = res.data.board;
-        this.board = new Board(
-            boardRaw.proposalDrawCards, 
-            boardRaw.eventDrawCards, 
-            boardRaw.proposalRecycleCards, 
-            boardRaw.eventRecycleCards, 
-            boardRaw.hands,
-            boardRaw.proposedCards,
-            boardRaw.activeCards,
-        )
-        return this.board;
+        if (boardRaw) {
+            this.board = new Board(
+                boardRaw.proposalDrawCards, 
+                boardRaw.eventDrawCards, 
+                boardRaw.proposalRecycleCards, 
+                boardRaw.eventRecycleCards, 
+                boardRaw.hands,
+                boardRaw.proposedCards,
+                boardRaw.activeCards,
+            )
+            return this.board;
+        }
     }
 }
