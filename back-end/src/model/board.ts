@@ -30,7 +30,7 @@ export class Board {
         const numProposalCards = (players.length - 1) * 10;
 
         this.proposalDrawCards = this.randomlyPullCards([...ProposalCardList], numProposalCards);
-        this.eventDrawCards = [...EventCardList];
+        this.eventDrawCards = this.randomlyPullCards([...EventCardList], EventCardList.length);
 
         this.createHands(players);
     }

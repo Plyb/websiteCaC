@@ -112,6 +112,7 @@
         </div>
     </div>
     <span v-if="board.getPlayerHand().isSpy">You are the spy</span>
+    <span v-else>You are a loyalist</span>
 </div>
 </template>
 
