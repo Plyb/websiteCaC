@@ -81,4 +81,5 @@ export const ProposalCardList: Card[] = [
     new Card('NOBLE SATISFACTION: Gluttony Ban', 'INSTANT: +1 Noble Satisfaction. ONGOING: While this card is active, no Noble Satisfaction cards may be enacted', true),
     new Card('FOOD STOCKPILE: Halt External Communication', 'INSTANT: +1 Foreign Relations. ONGOING: While this card is active, no Foreign Relations cards may be enacted', true),
     new Card('PEASANT SATISFACTION: Closed Town Square', 'INSTANT: +1 Peasant Satisfaction. ONGOING: While this card is active, no Food Peasant Satisfaction may be enacted', true),
+    new Card('MILITARY ADVANTAGE: Hire Soothsayer', 'INSTANT: Whoever proposed this card may look at the next three event cards', false),
 ]
